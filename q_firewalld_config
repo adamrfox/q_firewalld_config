@@ -1,12 +1,19 @@
 #!/bin/bash
 
-ports=(53 80 88 111 135 389 636 443 445 514 3712 3713 8000 9000)
+tcp_ports=(53 80 88 111 135 389 636 443 445 514 2049 3712 3713 8000 9000)
+udp_ports=(111,2049)
 systemctl start firewalld.service
-for p in ${ports[@]}
+for p in ${tcp_psorts[@]}
 do
-    echo -n "Adding port "
+    echo -n "Adding tcp port "
     echo $p
     firewall-cmd --zone=public --add-port=$p/tcp --permanent
+done
+for p in ${udp_prots[@]}
+do
+    echo -n "Adding udp port "
+    echo $p
+    firewall-cmd --zone=public --add-port=$p/udp --permanent
 done
 echo "Reloading Firewall"
 firewall-cmd --reload
