@@ -1,0 +1,19 @@
+#!/bin/bash
+
+ports=(53 80 88 111 135 389 636 443 445 514 3712 3713 8000 9000)
+systemctl start firewalld.service
+for p in ${ports[@]}
+do
+    echo -n "Adding port "
+    echo $p
+    firewall-cmd --zone=public --add-port=$p/tcp --permanent
+done
+echo "Reloading Firewall"
+firewall-cmd --reload
+firewall-cmd --zone=public --list-ports
+echo "Enable IPv6 Link Local"
+firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv6" source address="fe80::/64" accept'
+firewall-cmd --reload
+echo "Validate:"
+firewall-cmd --zone=public --list-ports
+firewall-cmd --list-rich-rules
