@@ -9,7 +9,7 @@ do
     echo $p
     firewall-cmd --zone=public --add-port=$p/tcp --permanent
 done
-for p in ${udp_prots[@]}
+for p in ${udp_ports[@]}
 do
     echo -n "Adding udp port "
     echo $p
