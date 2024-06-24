@@ -3,7 +3,7 @@
 tcp_ports=(53 80 88 111 135 389 636 443 445 514 2049 3712 3713 8000 9000)
 udp_ports=(111 2049)
 systemctl start firewalld.service
-for p in ${tcp_psorts[@]}
+for p in ${tcp_ports[@]}
 do
     echo -n "Adding tcp port "
     echo $p
